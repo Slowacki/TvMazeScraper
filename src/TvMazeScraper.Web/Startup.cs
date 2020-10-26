@@ -74,7 +74,6 @@ namespace TvMazeScraper.Web
         private void RegisterServices(IServiceCollection services)
         {
             services.AddScoped<IShowsService, ShowsService>();
-            services.AddScoped<IShowsRepository, MongoDbShowsRepository>();
         }
 
         private void InitializeMongoDb(IServiceCollection services)
@@ -86,7 +85,9 @@ namespace TvMazeScraper.Web
             var model = new CreateIndexModel<Show>(keys, new CreateIndexOptions() { ExpireAfter = new TimeSpan(12, 0, 0) });
 
             collection.Indexes.CreateOne(model);
+
             services.AddSingleton(i => collection);
+            services.AddScoped<IShowsRepository, MongoDbShowsRepository>();
         }
 
         private IAsyncPolicy<HttpResponseMessage> GetRetryPolicy()
