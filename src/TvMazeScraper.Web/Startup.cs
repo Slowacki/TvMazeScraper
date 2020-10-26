@@ -1,4 +1,5 @@
 ﻿using System;
+using System.Net;
 using System.Net.Http;
 using Microsoft.AspNetCore.Builder;
 using Microsoft.AspNetCore.Hosting;
@@ -8,7 +9,6 @@ using Microsoft.Extensions.DependencyInjection;
 using MongoDB.Driver;
 using Polly;
 using Polly.Extensions.Http;
-using SimpleInjector;
 using TvMazeScraper.Data.Repositories;
 using TvMazeScraper.Models;
 using TvMazeScraper.Repositories;
@@ -85,7 +85,7 @@ namespace TvMazeScraper.Web
         {
             return HttpPolicyExtensions
                 .HandleTransientHttpError()
-                .OrResult(msg => msg.StatusCode == System.Net.HttpStatusCode.TooManyRequests)
+                .OrResult(msg => msg.StatusCode == HttpStatusCode.TooManyRequests)
                 .WaitAndRetryForeverAsync(_ => TimeSpan.FromSeconds(1));
         }
     }
