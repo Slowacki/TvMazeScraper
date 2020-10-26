@@ -40,7 +40,10 @@ namespace TvMazeScraper.Web
             services.Configure<ClientNamesOptions>(Configuration.GetSection("HttpClientNames"));
             services.Configure<UrlsOptions>(Configuration.GetSection("Urls"));
 
-            services.AddSwaggerDocument();
+            services.AddSwaggerDocument(settings =>
+            {
+                settings.Title = "TvMazeScraper";
+            });
 
             RegisterServices(services);
             InitializeMongoDb(services);
@@ -78,6 +81,7 @@ namespace TvMazeScraper.Web
             var keys = Builders<Show>.IndexKeys.Ascending(f => f.CreatedAt);
             var model = new CreateIndexModel<Show>(keys, new CreateIndexOptions() { ExpireAfter = new TimeSpan(12, 0, 0) });
 
+            collection.Indexes.CreateOne(model);
             services.AddSingleton(i => collection);
         }
 
