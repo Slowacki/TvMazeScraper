@@ -40,6 +40,8 @@ namespace TvMazeScraper.Web
             services.Configure<ClientNamesOptions>(Configuration.GetSection("HttpClientNames"));
             services.Configure<UrlsOptions>(Configuration.GetSection("Urls"));
 
+            services.AddSwaggerDocument();
+
             RegisterServices(services);
             InitializeMongoDb(services);
         }
@@ -56,6 +58,8 @@ namespace TvMazeScraper.Web
                 app.UseHsts();
             }
 
+            app.UseOpenApi();
+            app.UseSwaggerUi3();
             app.UseHttpsRedirection();
             app.UseMvc();
         }

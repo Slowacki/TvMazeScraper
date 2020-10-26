@@ -4,7 +4,6 @@ using System.Linq;
 using System.Net.Http;
 using System.Threading.Tasks;
 using Microsoft.Extensions.Options;
-using Newtonsoft.Json;
 using TvMazeScraper.Models;
 using TvMazeScraper.Repositories;
 using TvMazeScraper.Services;
