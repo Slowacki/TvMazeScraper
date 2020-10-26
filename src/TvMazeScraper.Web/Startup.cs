@@ -1,6 +1,7 @@
 ﻿using System;
 using System.Net;
 using System.Net.Http;
+using AutoMapper;
 using Microsoft.AspNetCore.Builder;
 using Microsoft.AspNetCore.Hosting;
 using Microsoft.AspNetCore.Mvc;
@@ -14,6 +15,7 @@ using TvMazeScraper.Models;
 using TvMazeScraper.Repositories;
 using TvMazeScraper.Services;
 using TvMazeScraper.Web.Configuration;
+using TvMazeScraper.Web.Configuration.AutoMapper;
 using TvMazeScraper.Web.Services;
 
 namespace TvMazeScraper.Web
@@ -44,6 +46,8 @@ namespace TvMazeScraper.Web
             {
                 settings.Title = "TvMazeScraper";
             });
+
+            services.AddAutoMapper(typeof(ShowsProfile));
 
             RegisterServices(services);
             InitializeMongoDb(services);

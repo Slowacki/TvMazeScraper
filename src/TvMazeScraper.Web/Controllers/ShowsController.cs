@@ -1,9 +1,9 @@
 ﻿using System.Collections.Generic;
-using System.Linq;
 using System.Threading.Tasks;
+using AutoMapper;
 using Microsoft.AspNetCore.Mvc;
-using TvMazeScraper.Models;
 using TvMazeScraper.Services;
+using TvMazeScraper.Web.Dtos;
 
 namespace TvMazeScraper.Web.Controllers
 {
@@ -11,19 +11,22 @@ namespace TvMazeScraper.Web.Controllers
     [ApiController]
     public class ShowsController : ControllerBase
     {
+        private readonly IMapper _mapper;
         private readonly IShowsService _showsService;
 
-        public ShowsController(IShowsService showsService)
+        public ShowsController(IShowsService showsService,
+            IMapper mapper)
         {
             _showsService = showsService;
+            _mapper = mapper;
         }
 
         [HttpGet]
-        public async Task<ActionResult<IEnumerable<Show>>> Get([FromQuery] int page = 0)
+        public async Task<ActionResult<IEnumerable<ShowDto>>> Get([FromQuery] int page = 0)
         {
             var shows = await _showsService.GetAsync(page);
 
-            return shows.ToList();
+            return Ok(_mapper.Map<IEnumerable<ShowDto>>(shows));
         }
     }
 }
