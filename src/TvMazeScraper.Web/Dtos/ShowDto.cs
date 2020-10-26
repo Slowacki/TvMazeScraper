@@ -1,6 +1,4 @@
-﻿using System;
-using System.Collections.Generic;
-using System.Runtime.Serialization;
+﻿using System.Collections.Generic;
 
 namespace TvMazeScraper.Web.Dtos
 {
@@ -11,8 +9,5 @@ namespace TvMazeScraper.Web.Dtos
         public string Name { get; set; }
 
         public List<PersonDto> Cast { get; set; }
-
-        [IgnoreDataMember]
-        public DateTime CreatedAt { get; set; }
     }
 }
