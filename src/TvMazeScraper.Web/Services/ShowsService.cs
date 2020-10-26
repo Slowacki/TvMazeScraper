@@ -55,9 +55,7 @@ namespace TvMazeScraper.Web.Services
 
                 if (castResponse.IsSuccessStatusCode)
                 {
-                    var castResponseString = await castResponse.Content.ReadAsStringAsync();
-                    var cast = JsonConvert.DeserializeObject<List<CastMember>>(castResponseString);
-
+                    var cast = await castResponse.Content.ReadAsAsync<List<CastMember>>();
                     show.Cast = cast.Select(c => c.Person).OrderByDescending(o => o.Birthday).ToList();
                     show.CreatedAt = createdDate;
                 }
